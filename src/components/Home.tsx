@@ -59,7 +59,7 @@ const Home: React.FC<{ onStart: () => void, onSandbox: () => void }> = ({ onStar
           <div className="home-badge">FLUID DYNAMICS V2.0</div>
           <h1 className="home-title">MECANIQUE DE FLUIDE</h1>
           <p className="home-subtitle">
-            The definitive interactive reference for Fluid Mechanics Exam Mastery. 
+            The definitive interactive reference for Fluid Mechanics Mastery. 
             From Continuum Hypotheses to Boundary Layer Theory.
           </p>
           <div className="home-actions">

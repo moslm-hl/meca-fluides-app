@@ -30,7 +30,7 @@ export interface SectionData {
 export const mecaFluidesData: SectionData[] = [
   {
     id: 'ch1',
-    tabLabel: 'Ch1 Intro',
+    tabLabel: 'Intro',
     summary: 'De la mécanique du point vers la MMC. Fondations et hypothèses de continuité.',
     insights: [
       { title: 'Hypothèse MMC', content: 'Le fluide est un continuum. Valide si l_micro << l (particule) << L_macro.' },
@@ -93,13 +93,13 @@ export const mecaFluidesData: SectionData[] = [
         ]
       },
       { ln: 28, parts: [{ type: 'tx', text: ' ' }] },
-      { ln: 29, parts: [{ type: 'st', text: 'Dilatation' }, { type: 'tx', text: ' : (1/ω)dω/dt = tr(D) = div(v).' }], badge: { type: 'b-red', text: '⭐ EXAM' } },
+      { ln: 29, parts: [{ type: 'st', text: 'Dilatation' }, { type: 'tx', text: ' : (1/ω)dω/dt = tr(D) = div(v).' }], badge: { type: 'b-red', text: '⭐ IMPORTANT' } },
       { ln: 30, parts: [{ type: 'tx', text: '    div(v) = 0 → Fluide Incompressible.' }] },
     ],
   },
   {
     id: 'ch2',
-    tabLabel: 'Ch2 Cinématique',
+    tabLabel: 'Cinématique',
     summary: 'Descriptions, Dérivée Particulaire, Théorème de Transport et Bilans de Masse.',
     insights: [
       { title: 'GPS vs Radar', content: 'Lagrange (GPS) suit X. Euler (Radar) regarde x fixe. Indispensable pour les déformations.' },
@@ -136,7 +136,7 @@ export const mecaFluidesData: SectionData[] = [
   },
   {
     id: 'ch3',
-    tabLabel: 'Ch3 Bilans',
+    tabLabel: 'Bilans',
     summary: 'Lois de conservation fondamentales. Intuition physique des forces et des transferts d\'énergie.',
     insights: [
       { title: 'σ Symmetry', content: 'σ_ij = σ_ji est prouvé par le bilan de moment cinétique (3.4). Indique l\'absence de couples volumiques.' },
@@ -170,7 +170,7 @@ export const mecaFluidesData: SectionData[] = [
       { ln: 14, parts: [{ type: 'st', text: 'Bilan Global' }, { type: 'tx', text: ' : Somme des forces = Accélération de la masse.' }] },
       { ln: 15, parts: [{ type: 'formula', text: '    ∫_Ω ∂(ρv)/∂t dτ + ∮_Σ ρv(v·n) dS = Force_vol + Force_surf' }] },
       { ln: 16, parts: [{ type: 'st', text: 'Cauchy' }, { type: 'tx', text: ' (Local) : La loi de Newton en chaque point du fluide :' }] },
-      { ln: 17, parts: [{ type: 'formula', text: '    ρ Dv/Dt = ρf - ∇p + div(τ)' }], badge: { type: 'b-red', text: '⭐ EXAM' } },
+      { ln: 17, parts: [{ type: 'formula', text: '    ρ Dv/Dt = ρf - ∇p + div(τ)' }], badge: { type: 'b-red', text: '⭐ IMPORTANT' } },
       { ln: 18, parts: [{ type: 'tx', text: ' ' }] },
       { ln: 19, parts: [{ type: 'co', text: '# ── MOMENT CINÉTIQUE & SYMÉTRIE ─────────────────────────' }] },
       { ln: 20, parts: [{ type: 'tx', text: 'L\'absence de couples internes impose que le tenseur σ soit symétrique.' }] },
@@ -188,7 +188,7 @@ export const mecaFluidesData: SectionData[] = [
   },
   {
     id: 'ch4',
-    tabLabel: 'Ch4 N-S',
+    tabLabel: 'N-S',
     summary: 'Le système complet pour les fluides Newtoniens. Loi de Newton et fermeture.',
     insights: [
       { title: 'Inconnues (9)', content: 'Vitesse (3), Pression (1), Température (1), ρ, f, r, e. Nécessite des lois constitutives.' },
@@ -204,7 +204,7 @@ export const mecaFluidesData: SectionData[] = [
       { ln: 4, parts: [{ type: 'tx', text: '    μ : ' }, { type: 'hl', text: 'Viscosité Dynamique' }, { type: 'tx', text: ' [Pa.s]. Résistance interne à l\'écoulement.' }] },
       { ln: 5, parts: [{ type: 'tx', text: ' ' }] },
       { ln: 6, parts: [{ type: 'co', text: '# Équation de Navier-Stokes (Incompressible) :' }] },
-      { ln: 7, parts: [{ type: 'formula', text: '    ρ(∂u/∂t + (u·∇)u) = −∇p + μ∆u + ρg' }], badge: { type: 'b-red', text: '⭐⭐ EXAM' } },
+      { ln: 7, parts: [{ type: 'formula', text: '    ρ(∂u/∂t + (u·∇)u) = −∇p + μ∆u + ρg' }], badge: { type: 'b-red', text: '⭐⭐ IMPORTANT' } },
       { ln: 8, parts: [{ type: 'tx', text: ' ' }] },
       { ln: 9, parts: [{ type: 'co', text: '# Solutions Exactes (Géométries Simples) :' }] },
       { ln: 10, parts: [{ type: 'st', text: 'Poiseuille' }, { type: 'tx', text: ' (Conduite) : Profil parabolique.' }] },
@@ -220,7 +220,7 @@ export const mecaFluidesData: SectionData[] = [
   },
   {
     id: 'ch5',
-    tabLabel: 'Ch5 Bernoulli',
+    tabLabel: 'Bernoulli',
     summary: 'Théorèmes d\'Euler et de Bernoulli. Conservation de la Charge Hydraulique.',
     insights: [
       { title: '4 Hypothèses', content: 'Bernoulli nécessite : Stationnaire, Irrotationnel, Parfait (τ=0), Incompressible.' },
@@ -233,7 +233,7 @@ export const mecaFluidesData: SectionData[] = [
       { ln: 1, parts: [{ type: 'co', text: '# ── THÉORÈMES GÉNÉRAUX ET ÉNERGIE ───────────────────────' }] },
       { ln: 2, parts: [{ type: 'co', text: '# Théorème de Bernoulli (Conservation de la Charge) :' }] },
       { ln: 3, parts: [{ type: 'tx', text: '    Pour un fluide parfait et incompressible :' }] },
-      { ln: 4, parts: [{ type: 'formula', text: '    v²/2g + p/ρg + z = Charge (H) = Cte' }], badge: { type: 'b-red', text: '⭐⭐ EXAM' } },
+      { ln: 4, parts: [{ type: 'formula', text: '    v²/2g + p/ρg + z = Charge (H) = Cte' }], badge: { type: 'b-red', text: '⭐⭐ IMPORTANT' } },
       { ln: 5, parts: [{ type: 'tx', text: '    - v²/2g : Charge dynamique | p/ρg : Charge de pression.' }] },
       { ln: 6, parts: [{ type: 'tx', text: ' ' }] },
       { ln: 7, parts: [{ type: 'co', text: '# Théorème d\'Euler (Quantité de Mouvement) :' }] },
@@ -251,7 +251,7 @@ export const mecaFluidesData: SectionData[] = [
   },
   {
     id: 'ch6',
-    tabLabel: 'Ch6 Similitude',
+    tabLabel: 'Similitude',
     summary: 'Analyse dimensionnelle et nombres sans dimension. Théorème Π.',
     insights: [
       { title: 'Théorème Π', content: 'Réduit un problème de n variables à k nombres adimensionnels (k = n - r).' },
@@ -281,7 +281,7 @@ export const mecaFluidesData: SectionData[] = [
   },
   {
     id: 'ch7',
-    tabLabel: 'Ch7 Potentiel',
+    tabLabel: 'Potentiel',
     summary: 'Écoulements irrotationnels de fluides parfaits. Méthode du potentiel complexe.',
     insights: [
       { title: 'Superposition', content: 'Comme Δφ = 0 est linéaire, on peut sommer des solutions élémentaires.' },
@@ -312,7 +312,7 @@ export const mecaFluidesData: SectionData[] = [
   },
   {
     id: 'ch8',
-    tabLabel: 'Ch8 C.L.',
+    tabLabel: 'C.L.',
     summary: 'Théorie de la Couche Limite (Prandtl). Effets visqueux près des parois.',
     insights: [
       { title: 'Épaisseur δ', content: 'δ ~ L / √Re. Très faible pour Re élevé, mais gradient ∂u/∂y énorme.' },

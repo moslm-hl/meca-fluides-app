@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Stars, Float, PerspectiveCamera, MeshDistortMaterial, Trail } from '@react-three/drei';
+import { OrbitControls, Stars, Float, PerspectiveCamera, Trail } from '@react-three/drei';
+
 
 const ContinuumSim = () => {
-  const micro = useRef<any>();
-  const macro = useRef<any>();
+  const micro = useRef<any>(null);
+  const macro = useRef<any>(null);
   useFrame((state) => {
     micro.current.rotation.y += 0.01;
     macro.current.rotation.x += 0.005;
@@ -24,8 +25,8 @@ const ContinuumSim = () => {
 };
 
 const KinematicsSim = ({ velocity, viscosity }: { velocity: number, viscosity: number }) => {
-  const eulerGrid = useRef<any>();
-  const lagrangePoint = useRef<any>();
+  const eulerGrid = useRef<any>(null);
+  const lagrangePoint = useRef<any>(null);
   useFrame((state) => {
     eulerGrid.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
     const t = state.clock.elapsedTime * velocity;
@@ -63,7 +64,7 @@ const BalancesSim = () => {
 };
 
 const NavierStokesSim = ({ velocity, viscosity }: { velocity: number, viscosity: number }) => {
-  const profile = useRef<any>();
+  const profile = useRef<any>(null);
   useFrame((state) => {
     profile.current.children.forEach((line: any, i: number) => {
       const r = Math.abs(i - 7) / 7;
@@ -88,7 +89,7 @@ const NavierStokesSim = ({ velocity, viscosity }: { velocity: number, viscosity:
 };
 
 const BernoulliSim = () => {
-  const levels = useRef<any>();
+  const levels = useRef<any>(null);
   useFrame((state) => {
     const t = state.clock.elapsedTime;
     levels.current.children[0].scale.y = 1 + Math.sin(t) * 0.5;
@@ -118,7 +119,7 @@ const SimilitudeSim = () => {
 };
 
 const PotentialSim = () => {
-  const ref = useRef<any>();
+  const ref = useRef<any>(null);
   useFrame((state) => (ref.current.rotation.y += 0.005));
   return (
     <group ref={ref}>
