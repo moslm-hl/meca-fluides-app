@@ -11,7 +11,8 @@ interface BendSimProps {
 const BendSimulation: React.FC<BendSimProps> = ({ velocity, density, diameter, bendAngle, pressureIn }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<any[]>([]);
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number | undefined>(undefined);
+
 
   const [overlayPos, setOverlayPos] = useState({ x: 24, y: 24 });
   const [isDraggingOverlay, setIsDraggingOverlay] = useState(false);
@@ -101,7 +102,7 @@ const BendSimulation: React.FC<BendSimProps> = ({ velocity, density, diameter, b
 
     // Inlet start point
     const inletStartX = inletEndX - inletLength;
-    const inletStartY = inletEndY;
+    
 
     // Get position + tangent along the full pipe path (t in [0,1])
     const getPathPos = (t: number) => {

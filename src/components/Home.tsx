@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Text, MeshDistortMaterial, Stars, PerspectiveCamera } from '@react-three/drei';
+import { Float, MeshDistortMaterial, Stars, PerspectiveCamera } from '@react-three/drei';
 
 const FlowField = () => {
-  const points = useRef<any>();
+  const points = useRef<any>(null);
   useFrame((state) => {
     const t = state.clock.elapsedTime * 0.5;
-    points.current.children.forEach((p: any, i: number) => {
+    points.current.children.forEach((p: any) => {
       p.position.y += Math.sin(t + p.position.x) * 0.005;
       p.position.z += Math.cos(t + p.position.y) * 0.005;
       p.rotation.x += 0.01;

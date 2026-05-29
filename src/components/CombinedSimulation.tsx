@@ -20,7 +20,7 @@ interface CombinedSimProps {
 const CombinedSimulation: React.FC<CombinedSimProps> = ({ velocity, guideSize, density, viscosity, pressureIn, pipeline }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<any[]>([]);
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number | undefined>(undefined);
 
   const [overlayPos, setOverlayPos] = useState({ x: 24, y: 24 });
   const [isDraggingOverlay, setIsDraggingOverlay] = useState(false);

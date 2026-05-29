@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from 'react';
 const FluidSandbox: React.FC<{ viscosity: number, velocity: number, guideSize: number, geometry?: 'pipe' | 'venturi', neckSize?: number }> = ({ viscosity, velocity, guideSize, geometry = 'pipe', neckSize = 0.5 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<any[]>([]);
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number | undefined>(undefined);
   
   // Draggable Overlay State
   const [overlayPos, setOverlayPos] = useState({ x: 24, y: 24 });

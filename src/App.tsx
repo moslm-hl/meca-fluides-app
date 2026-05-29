@@ -61,7 +61,7 @@ export default function App() {
   const [density, setDensity] = useState(1.0);
   const [pressure, setPressure] = useState(0.5);
   const [geometry, setGeometry] = useState<'pipe' | 'venturi' | 'bend' | 'combined' | 'network'>('pipe');
-  const [neckSize, setNeckSize] = useState(0.5);
+  const [neckSize] = useState(0.5);
   const [showControls, setShowControls] = useState(true);
 
   // Bend Simulation State
