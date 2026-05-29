@@ -138,7 +138,7 @@ export default function App() {
           <div className="sandbox-container">
             <div className="simulation-area">
               {geometry === 'network' ? (
-                <NetworkSimulation velocity={velocity} viscosity={viscosity} />
+                <NetworkSimulation velocity={velocity} viscosity={viscosity} onVelocityChange={setVelocity} onViscosityChange={setViscosity} />
               ) : geometry === 'combined' ? (
                 <CombinedSimulation
                   velocity={velocity * 2}
@@ -169,8 +169,32 @@ export default function App() {
 
             {showControls && (
               <div className="sandbox-controls">
-                <h3>EXPERIMENTAL PARAMETERS</h3>
-                <p>Fine-tune the physical environment.</p>
+                <div className="params-header">
+                  <div className="params-title">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="3" />
+                      <path d="M12 1v6m0 6v6m-8.5-8.5h4.2m8.6 0h4.2" />
+                    </svg>
+                    <h3>EXPERIMENTAL PARAMETERS</h3>
+                  </div>
+                  <p>Fine-tune the physical environment</p>
+                  <button 
+                    className="reset-btn"
+                    onClick={() => {
+                      setGuideSize(0.6);
+                      setVelocity(1.0);
+                      setDensity(1.0);
+                      setPressure(0.5);
+                      setViscosity(0.2);
+                    }}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                      <path d="M3 3v5h5" />
+                    </svg>
+                    RESET DEFAULTS
+                  </button>
+                </div>
 
 
 
@@ -187,12 +211,37 @@ export default function App() {
 
               {geometry !== 'bend' && (
                 <div className="reynolds-display">
-                  <span className="re-label">REYNOLDS (Re)</span>
-                  <span className="re-value">{reynolds}</span>
-                  <div className="re-gauge">
-                    <div className="re-fill" style={{ width: `${Math.min(100, reynolds / 100)}%`, background: reynolds > 2000 ? '#ef4444' : '#22c55e' }}></div>
+                  <div className="re-header">
+                    <span className="re-label">REYNOLDS NUMBER</span>
+                    <span className={`re-badge ${reynolds > 2000 ? 'turbulent' : 'laminar'}`}>
+                      {reynolds > 2000 ? 'TURBULENT' : 'LAMINAR'}
+                    </span>
                   </div>
-                  <span className="re-status">{reynolds > 2000 ? 'TURBULENT FLOW' : 'LAMINAR FLOW'}</span>
+                  <div className="re-value-container">
+                    <span className="re-value">{reynolds.toLocaleString()}</span>
+                    <span className="re-unit">Re</span>
+                  </div>
+                  <div className="re-gauge">
+                    <div className="re-track"></div>
+                    <div 
+                      className="re-fill" 
+                      style={{ 
+                        width: `${Math.min(100, (reynolds / 5000) * 100)}%`,
+                        background: reynolds > 2000 
+                          ? 'linear-gradient(90deg, #f97316, #ef4444)' 
+                          : 'linear-gradient(90deg, #22c55e, #10b981)'
+                      }}
+                    ></div>
+                    <div className="re-markers">
+                      <span className="marker">2000</span>
+                      <span className="marker">4000</span>
+                    </div>
+                  </div>
+                  <div className="re-description">
+                    {reynolds > 2000 
+                      ? 'Chaotic flow with eddies and vortices' 
+                      : 'Smooth, orderly fluid motion'}
+                  </div>
                 </div>
               )}
 
@@ -228,45 +277,112 @@ export default function App() {
                 )}
 
                 <div className="control-item">
-                  <span>GUIDE SIZE (D) — {guideSize.toFixed(2)}</span>
-                  <input
-                    type="range" min="0.2" max={geometry === 'bend' ? 2.5 : 0.9} step="0.01"
-                    value={guideSize} onChange={(e) => setGuideSize(parseFloat(e.target.value))}
-                  />
+                  <div className="control-label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <circle cx="12" cy="12" r="4" />
+                    </svg>
+                    <span>GUIDE SIZE (D)</span>
+                    <span className="control-value">{guideSize.toFixed(2)}</span>
+                  </div>
+                  <div className="slider-container">
+                    <input
+                      type="range" min="0.2" max={geometry === 'bend' ? 2.5 : 0.9} step="0.01"
+                      value={guideSize} onChange={(e) => setGuideSize(parseFloat(e.target.value))}
+                      className="custom-slider"
+                    />
+                    <div className="slider-range">
+                      <span>0.2</span>
+                      <span>{geometry === 'bend' ? '2.5' : '0.9'}</span>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="control-item">
-                  <span>INLET VELOCITY (V) — {velocity.toFixed(2)} m/s</span>
-                  <input
-                    type="range" min="0.1" max="2.0" step="0.1"
-                    value={velocity} onChange={(e) => setVelocity(parseFloat(e.target.value))}
-                  />
+                  <div className="control-label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                    </svg>
+                    <span>INLET VELOCITY (V)</span>
+                    <span className="control-value">{velocity.toFixed(2)} m/s</span>
+                  </div>
+                  <div className="slider-container">
+                    <input
+                      type="range" min="0.1" max="2.0" step="0.1"
+                      value={velocity} onChange={(e) => setVelocity(parseFloat(e.target.value))}
+                      className="custom-slider"
+                    />
+                    <div className="slider-range">
+                      <span>0.1</span>
+                      <span>2.0</span>
+                    </div>
+                  </div>
                 </div>
 
                 {geometry !== 'bend' && geometry !== 'combined' && geometry !== 'network' && (
                   <div className="control-item">
-                    <span>VISCOSITY (μ) — {viscosity.toFixed(2)}</span>
-                    <input
-                      type="range" min="0.01" max="1.0" step="0.01"
-                      value={viscosity} onChange={(e) => setViscosity(parseFloat(e.target.value))}
-                    />
+                    <div className="control-label">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" />
+                      </svg>
+                      <span>VISCOSITY (μ)</span>
+                      <span className="control-value">{viscosity.toFixed(2)}</span>
+                    </div>
+                    <div className="slider-container">
+                      <input
+                        type="range" min="0.01" max="1.0" step="0.01"
+                        value={viscosity} onChange={(e) => setViscosity(parseFloat(e.target.value))}
+                        className="custom-slider"
+                      />
+                      <div className="slider-range">
+                        <span>0.01</span>
+                        <span>1.0</span>
+                      </div>
+                    </div>
                   </div>
                 )}
 
                 <div className="control-item">
-                  <span>DENSITY (ρ) — {density.toFixed(2)}</span>
-                  <input
-                    type="range" min="0.1" max="2.0" step="0.1"
-                    value={density} onChange={(e) => setDensity(parseFloat(e.target.value))}
-                  />
+                  <div className="control-label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    </svg>
+                    <span>DENSITY (ρ)</span>
+                    <span className="control-value">{density.toFixed(2)}</span>
+                  </div>
+                  <div className="slider-container">
+                    <input
+                      type="range" min="0.1" max="2.0" step="0.1"
+                      value={density} onChange={(e) => setDensity(parseFloat(e.target.value))}
+                      className="custom-slider"
+                    />
+                    <div className="slider-range">
+                      <span>0.1</span>
+                      <span>2.0</span>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="control-item">
-                  <span>PRESSURE (P) — {pressure.toFixed(2)}</span>
-                  <input
-                    type="range" min="0" max="2.0" step="0.1"
-                    value={pressure} onChange={(e) => setPressure(parseFloat(e.target.value))}
-                  />
+                  <div className="control-label">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 2v20M2 12h20" />
+                      <circle cx="12" cy="12" r="4" />
+                    </svg>
+                    <span>PRESSURE (P)</span>
+                    <span className="control-value">{pressure.toFixed(2)}</span>
+                  </div>
+                  <div className="slider-container">
+                    <input
+                      type="range" min="0" max="2.0" step="0.1"
+                      value={pressure} onChange={(e) => setPressure(parseFloat(e.target.value))}
+                      className="custom-slider"
+                    />
+                    <div className="slider-range">
+                      <span>0</span>
+                      <span>2.0</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
