@@ -50,7 +50,7 @@ const NetworkSimulation: React.FC<NetworkSimProps> = ({ velocity, viscosity }) =
   ]);
 
   const particlesRef = useRef<Particle[]>([]);
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number | undefined>(undefined);
   
   const [mode, setMode] = useState<'move' | 'node' | 'link'>('move');
   const [dragStartNode, setDragStartNode] = useState<string | null>(null);

@@ -6,7 +6,7 @@ import { OrbitControls, Stars, Float, PerspectiveCamera, Trail } from '@react-th
 const ContinuumSim = () => {
   const micro = useRef<any>(null);
   const macro = useRef<any>(null);
-  useFrame((state) => {
+  useFrame((_state) => {
     micro.current.rotation.y += 0.01;
     macro.current.rotation.x += 0.005;
   });
@@ -65,7 +65,7 @@ const BalancesSim = () => {
 
 const NavierStokesSim = ({ velocity, viscosity }: { velocity: number, viscosity: number }) => {
   const profile = useRef<any>(null);
-  useFrame((state) => {
+  useFrame((_state) => {
     profile.current.children.forEach((line: any, i: number) => {
       const r = Math.abs(i - 7) / 7;
       // Viscosity affects how much the profile stretches
@@ -120,7 +120,7 @@ const SimilitudeSim = () => {
 
 const PotentialSim = () => {
   const ref = useRef<any>(null);
-  useFrame((state) => (ref.current.rotation.y += 0.005));
+  useFrame((_state) => (ref.current.rotation.y += 0.005));
   return (
     <group ref={ref}>
       <mesh><sphereGeometry args={[1.5, 32, 32]} /><meshStandardMaterial color="#6366f1" transparent opacity={0.3} /></mesh>
